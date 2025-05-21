@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transaction List</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="mt-5">Transaction List</h2>
+      <table class="table table-bordered mt-3">
+        <thead>
+          <tr>
+            <th>Sender ID</th>
+            <th>Receiver ID</th>
+            <th>Amount</th>
+            <th>Transaction Fee</th>
+            <th>Timestamp</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for transaction in transactions %}
+          <tr>
+            <td>{{ transaction.senderid }}</td>
+            <td>{{ transaction.receiverid }}</td>
+            <td>{{ transaction.amt }}</td>
+            <td>{{ transaction.transaction_fee }}</td>
+            <td>{{ transaction.timestamp }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
