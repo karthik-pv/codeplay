@@ -1,13 +1,12 @@
 import random
 from datetime import datetime
 
-from transactions.transactions import Transactions
+from main_chain.transactions.transactions import Transactions
 
 transactions = Transactions()
 
 
 def generate_random_transactions(num_transactions=20):
-    print("here")
     transactions_list = []
     sender_ids = [f"user{i}" for i in range(1, 21)]  # Create 20 unique sender IDs
     receiver_ids = [
@@ -37,3 +36,7 @@ def generate_random_transactions(num_transactions=20):
 
 def fetch_transactions():
     return transactions.get_transactions()
+
+
+def get_transactions_to_mine():
+    return transactions.fetch_transactions_to_mine()

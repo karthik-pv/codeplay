@@ -1,3 +1,4 @@
+import random
 from sortedcontainers import SortedSet
 
 
@@ -46,6 +47,32 @@ class Transactions:
             }
             for tx in self.transactions
         ]
+
+    def fetch_transactions_to_mine(self):
+        top_transactions = list(self.transactions)[:10]
+        if len(top_transactions) <= 5:
+            return [
+                {
+                    "senderid": tx[0],
+                    "receiverid": tx[1],
+                    "amt": tx[2],
+                    "transaction_fee": tx[3],
+                    "timestamp": tx[4],
+                }
+                for tx in top_transactions
+            ]
+        else:
+            sampled = random.sample(top_transactions, 5)
+            return [
+                {
+                    "senderid": tx[0],
+                    "receiverid": tx[1],
+                    "amt": tx[2],
+                    "transaction_fee": tx[3],
+                    "timestamp": tx[4],
+                }
+                for tx in sampled
+            ]
 
     def clear_transactions(self):
         self.transactions.clear()

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Blockchain Overview</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 20px;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      .block,
+      .rejected {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        padding: 20px;
+        width: 90%;
+        max-width: 900px;
+      }
+
+      .block-header {
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .transactions {
+        margin-top: 10px;
+        padding-left: 20px;
+      }
+
+      .rejected {
+        background-color: #ffe6e6;
+      }
+
+      .rejected h3 {
+        color: #cc0000;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Blockchain Status</h1>
+
+    <div class="blockchain">
+      <h2>✅ Verified Blocks</h2>
+      {% for block in chain %}
+      <div class="block">
+        <div class="block-header">
+          Block #{{ block.index }} | Hash: {{ block.hash }}
+        </div>
+        <div><strong>Timestamp:</strong> {{ block.timestamp }}</div>
+        <div><strong>Previous Hash:</strong> {{ block.previous_hash }}</div>
+        <div class="transactions">
+          <strong>Transactions:</strong>
+          <ul>
+            {% for tx in block.transactions %}
+            <li>
+              {{ tx[0] }} ➡️ {{ tx[1] }} | Amount: {{ tx[2] }}, Fee: {{ tx[3]
+              }}, Time: {{ tx[4] }}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="rejected">
+      <h2>❌ Rejected Miners</h2>
+      <ul>
+        {% for entry in miner_log %} {% if entry.status == "rejected" %}
+        <li>Miner ID: {{ entry.miner }} | Status: {{ entry.status }}</li>
+        {% endif %} {% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>
